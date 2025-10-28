@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    @apply transition-colors duration-200;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply font-sans;
+}
+
+/* Light Mode (default) */
+body {
+    @apply bg-white text-gray-900;
+}
+
+/* Dark Mode */
+body.dark {
+    @apply bg-dark-950 text-gray-50;
+}
+
+/* Custom scrollbar - Light Mode */
+::-webkit-scrollbar {
+    @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded hover:bg-gray-400;
+}
+
+/* Custom scrollbar - Dark Mode */
+body.dark ::-webkit-scrollbar-track {
+    @apply bg-dark-900;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    @apply bg-primary-600 rounded hover:bg-primary-500;
+}
+
+/* Smooth transitions */
+.page-enter-active,
+.page-leave-active {
+  @apply transition-opacity duration-200;
+}
+
+.page-enter-from {
+  @apply opacity-0;
+}
+
+.page-leave-to {
+  @apply opacity-0;
+}
+
+/* Minimalist utility classes */
+.border-light {
+  @apply border border-gray-200/50;
+}
+
+body.dark .border-light {
+  @apply border-dark-700/50;
+}
+
+.shadow-minimal {
+  @apply shadow-sm;
+}
+
+.text-muted {
+  @apply text-gray-600;
+}
+
+body.dark .text-muted {
+  @apply text-gray-400;
+}
+
+/* Modern button styles */
+.btn-primary {
+  @apply px-4 py-2.5 bg-primary-600 text-white rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md hover:bg-primary-700;
+}
+
+.btn-secondary {
+  @apply px-4 py-2.5 bg-gray-100 text-gray-900 rounded-lg font-medium transition-all duration-200 hover:bg-gray-200;
+}
+
+body.dark .btn-secondary {
+  @apply bg-dark-800 text-gray-100 hover:bg-dark-700;
+}
+
+/* Modern input styles */
+.input-modern {
+  @apply px-4 py-2.5 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all duration-200 shadow-sm;
+}
+
+body.dark .input-modern {
+  @apply bg-dark-800 border-dark-700 text-white placeholder-gray-500 focus:shadow-md focus:shadow-primary-600/20;
+}
+
+body:not(.dark) .input-modern {
+  @apply bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:shadow-md focus:shadow-primary-600/10;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, input, select, textarea {
+  @apply transition-all duration-200;
+}
