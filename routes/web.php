@@ -12,3 +12,10 @@ Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*')->name('spa');
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/account', function () {
+        return view('app'); 
+    })->name('account');
+});
+

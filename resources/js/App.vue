@@ -1,6 +1,7 @@
 <template>
   <div :class="['min-h-screen flex flex-col transition-colors duration-300', isDark ? 'bg-dark-950' : 'bg-gray-50']">
     <Header />
+    <EmailVerificationNotice v-if="authStore.isAuthenticated && !authStore.emailVerified" />
 
     <main class="flex-grow">
       <Transition
@@ -21,6 +22,7 @@ import { useThemeStore } from './stores/themeStore'
 import { useAuthStore } from './stores/authStore'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
+import EmailVerificationNotice from './components/EmailVerificationNotice.vue'
 
 const themeStore = useThemeStore()
 const authStore = useAuthStore()

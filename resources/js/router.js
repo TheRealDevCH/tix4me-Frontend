@@ -12,6 +12,7 @@ import Terms from './pages/Terms.vue'
 import ForgotPassword from './pages/ForgotPassword.vue'
 import ResetPassword from './pages/ResetPassword.vue'
 import CreateEvent from './pages/CreateEvent.vue'
+import EmailVerify from './pages/EmailVerify.vue'
 
 const routes = [
   {
@@ -61,6 +62,12 @@ const routes = [
     name: 'ResetPassword',
     component: ResetPassword,
     meta: { title: 'Passwort zurücksetzen - Tix4me' },
+  },
+  {
+    path: '/email/verify',
+    name: 'EmailVerify',
+    component: EmailVerify,
+    meta: { title: 'E-Mail bestätigen - Tix4me' },
   },
   {
     path: '/account',

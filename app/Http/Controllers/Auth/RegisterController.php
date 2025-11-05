@@ -44,12 +44,13 @@ class RegisterController extends Controller
      *
      * Success response (201):
      * {
-     *     "message": "Registrierung erfolgreich",
+     *     "message": "Registrierung erfolgreich. Bitte überprüfen Sie Ihre E-Mail zur Verifizierung.",
      *     "token": "secure_random_token_60_characters",
      *     "user": {
      *         "id": 1,
      *         "name": "User Name",
-     *         "email": "user@example.com"
+     *         "email": "user@example.com",
+     *         "email_verified": false
      *     },
      *     "expires_at": "2025-10-24T12:00:00Z"
      * }
@@ -98,27 +99,33 @@ class RegisterController extends Controller
             'password' => $validated['password'],
         ]);
 
-        // Generate secure token
         $token = Str::random(60);
         $expiresAt = now()->addHours(self::SESSION_EXPIRATION_HOURS);
 
-        // Create initial session
         $session = Session::create([
             'user_id' => $user->id,
-            'token' => $token,
+            'token' => hash('sha256', $token),
             'user_agent' => $request->userAgent(),
             'ip_address' => $request->ip(),
             'last_activity' => now(),
             'expires_at' => $expiresAt,
         ]);
 
+        try {
+            $user->sendEmailVerificationNotification();
+        } catch (\Exception $e) {
+            \Log::error('Email verification notification failed: ' . $e->getMessage());
+            // Continue even if email fails - user can resend later
+        }
+
         return response()->json([
-            'message' => 'Registrierung erfolgreich',
+            'message' => 'Registrierung erfolgreich. Bitte überprüfen Sie Ihre E-Mail zur Verifizierung.',
             'token' => $token,
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'email_verified' => $user->hasVerifiedEmail(),
             ],
             'expires_at' => $expiresAt->toIso8601String(),
         ], 201);

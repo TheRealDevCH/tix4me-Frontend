@@ -46,7 +46,8 @@ class LoginController extends Controller
      *     "user": {
      *         "id": 1,
      *         "name": "User Name",
-     *         "email": "user@example.com"
+     *         "email": "user@example.com",
+     *         "email_verified": true
      *     },
      *     "expires_at": "2025-10-24T12:00:00Z"
      * }
@@ -67,7 +68,6 @@ class LoginController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
-        // Validate input
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -78,24 +78,19 @@ class LoginController extends Controller
             'password.min' => 'Passwort muss mindestens 6 Zeichen lang sein',
         ]);
 
-        // Find user by email
         $user = User::where('email', $validated['email'])->first();
 
-        // Check if user exists and password is correct
         if (!$user || !Hash::check($validated['password'], $user->password)) {
             return response()->json([
                 'message' => 'E-Mail oder Passwort ist falsch',
             ], 401);
         }
 
-        // Invalidate all previous sessions for this user
         $user->invalidateAllSessions();
 
-        // Generate secure token
         $token = Str::random(60);
         $expiresAt = now()->addHours(self::SESSION_EXPIRATION_HOURS);
 
-        // Create new session
         $session = Session::create([
             'user_id' => $user->id,
             'token' => $token,
@@ -112,6 +107,7 @@ class LoginController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'email_verified' => $user->hasVerifiedEmail(),
             ],
             'expires_at' => $expiresAt->toIso8601String(),
         ], 200);

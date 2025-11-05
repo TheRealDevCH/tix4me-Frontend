@@ -1,21 +1,30 @@
 <template>
-  <div :class="['min-h-screen flex flex-col transition-colors duration-200', isDark ? 'bg-dark-950' : 'bg-white']">
+  <div :class="['min-h-screen flex flex-col transition-colors duration-300 relative overflow-hidden', isDark ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-gray-50']">
+    <!-- Animated Background Gradient -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div :class="['absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20 animate-pulse', isDark ? 'bg-primary-600' : 'bg-primary-400']"></div>
+      <div :class="['absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20 animate-pulse', isDark ? 'bg-purple-600' : 'bg-purple-400']" style="animation-delay: 1s;"></div>
+    </div>
+
     <!-- Loading Spinner -->
     <LoadingSpinner :isVisible="isLoading" :loadingText="$t('auth.resettingPassword')" />
 
     <!-- Main Content -->
-    <div class="flex-1 flex items-center justify-center px-4 py-12">
-      <div class="w-full max-w-md">
+    <div class="flex-1 flex items-center justify-center px-4 py-12 relative z-10 pt-32">
+      <div
+        class="w-full max-w-md transition-all duration-1000 ease-out"
+        :class="isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
+      >
         <!-- Card -->
-        <div :class="['border rounded-2xl p-8 transition-all duration-200 shadow-lg', isDark ? 'bg-dark-800 border-dark-700/50 shadow-black/20' : 'bg-white border-gray-200/50 shadow-black/5']">
+        <div :class="['rounded-2xl p-10 transition-all duration-300 backdrop-blur-md', isDark ? 'bg-gray-800/50 border border-gray-700/50 shadow-2xl' : 'bg-white/90 border border-gray-200/50 shadow-2xl']">
           <!-- Header -->
-          <div class="text-center mb-8">
-            <h1 :class="['text-3xl font-bold mb-2', isDark ? 'text-white' : 'text-gray-900']">{{ $t('auth.resetPassword') || 'Passwort zurücksetzen' }}</h1>
-            <p :class="['text-sm', isDark ? 'text-gray-400' : 'text-gray-600']">{{ $t('auth.resetPasswordSubtitle') || 'Gib dein neues Passwort ein' }}</p>
+          <div class="text-center mb-10">
+            <h1 :class="['text-4xl font-extrabold mb-3 bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent']">{{ $t('auth.resetPassword') || 'Passwort zurücksetzen' }}</h1>
+            <p :class="['text-base', isDark ? 'text-gray-300' : 'text-gray-700']">{{ $t('auth.resetPasswordSubtitle') || 'Gib dein neues Passwort ein' }}</p>
           </div>
 
           <!-- Form -->
-          <form @submit.prevent="handleResetPassword" class="space-y-5 mb-6">
+          <form @submit.prevent="handleResetPassword" class="space-y-6 mb-8">
             <div>
               <label :class="['block text-sm font-medium mb-2', isDark ? 'text-gray-300' : 'text-gray-700']">{{ $t('auth.email') }}</label>
               <input
@@ -96,9 +105,15 @@
             <button
               type="submit"
               :disabled="isLoading"
-              :class="['w-full py-2.5 bg-primary-600 text-white rounded-lg font-medium text-sm transition-all duration-200 mt-6 shadow-sm hover:shadow-md', isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-primary-700']"
+              :class="['group w-full py-4 rounded-xl font-bold text-lg transition-all duration-500 relative overflow-hidden mt-6', isLoading ? 'opacity-50 cursor-not-allowed bg-gray-400 text-gray-200' : 'bg-gradient-to-r from-primary-600 to-purple-600 text-white shadow-xl hover:shadow-2xl hover:scale-105']"
             >
-              {{ $t('auth.resetPasswordButton') || 'Passwort zurücksetzen' }}
+              <span class="relative z-10 flex items-center justify-center gap-3">
+                <svg v-if="!isLoading" class="w-6 h-6 transition-transform duration-500 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                </svg>
+                <span class="transition-all duration-500 group-hover:tracking-wider">{{ $t('auth.resetPasswordButton') || 'Passwort zurücksetzen' }}</span>
+              </span>
+              <div v-if="!isLoading" class="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
             </button>
           </form>
 

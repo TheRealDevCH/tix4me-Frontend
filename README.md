@@ -1,61 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tix4me - Event Ticketing Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Eine moderne Event-Ticketing-Plattform gebaut mit Laravel und Vue.js.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Event-Verwaltung:** Erstellen, bearbeiten und löschen Sie Events
+- **Ticket-System:** Kaufen Sie Tickets für Events
+- **Benutzer-Authentifizierung:** Registrierung, Login, Email-Verifizierung
+- **Profil-Verwaltung:** Ändern Sie Name, Email und Passwort
+- **Warenkorb:** Fügen Sie Tickets zum Warenkorb hinzu
+- **Mehrsprachig:** Deutsch, Englisch, Französisch
+- **Dark Mode:** Umschalten zwischen hellem und dunklem Design
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Technologien
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend:** Laravel 12.0
+- **Frontend:** Vue.js 3.5.22
+- **State Management:** Pinia 3.0.3
+- **Routing:** Vue Router 4.6.3
+- **Styling:** Tailwind CSS 3.4.18
+- **Build Tool:** Vite 7.0.7
+- **Datenbank:** SQLite
+- **Email:** Gmail SMTP
 
-## Learning Laravel
+## 📦 Installation (Lokal)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Voraussetzungen
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.2+
+- Composer
+- Node.js 18+
+- npm oder yarn
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Schritte
 
-## Laravel Sponsors
+1. **Repository klonen:**
+   ```bash
+   git clone <your-repo-url>
+   cd FRONTEND
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Dependencies installieren:**
+   ```bash
+   composer install
+   npm install
+   ```
 
-### Premium Partners
+3. **Environment-Datei erstellen:**
+   ```bash
+   cp .env.example .env
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **App-Key generieren:**
+   ```bash
+   php artisan key:generate
+   ```
 
-## Contributing
+5. **Datenbank erstellen:**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Development-Server starten:**
+   ```bash
+   # Terminal 1: Laravel
+   php artisan serve
 
-## Code of Conduct
+   # Terminal 2: Vite
+   npm run dev
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. **Öffnen Sie:** `http://localhost:8000`
 
-## Security Vulnerabilities
+## 🌐 Deployment auf Vercel
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Voraussetzungen
 
-## License
+- GitHub Account
+- Vercel Account (kostenlos)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Schritte
+
+1. **GitHub Repository erstellen:**
+   - Gehen Sie zu [github.com/new](https://github.com/new)
+   - Erstellen Sie ein neues Repository (z.B. "tix4me")
+   - **Wichtig:** Machen Sie es **privat** (wegen .env Daten)
+
+2. **Code zu GitHub pushen:**
+   ```bash
+   git add .
+   git commit -m "Initial commit - Tix4me Platform"
+   git branch -M main
+   git remote add origin https://github.com/IHR-USERNAME/tix4me.git
+   git push -u origin main
+   ```
+
+3. **Vercel Projekt erstellen:**
+   - Gehen Sie zu [vercel.com](https://vercel.com)
+   - Klicken Sie auf "Add New Project"
+   - Importieren Sie Ihr GitHub Repository
+   - Wählen Sie "Other" als Framework Preset
+
+4. **Environment Variables in Vercel setzen:**
+   
+   Gehen Sie zu **Settings → Environment Variables** und fügen Sie hinzu:
+
+   ```
+   APP_NAME=Tix4me
+   APP_ENV=production
+   APP_KEY=<generieren Sie einen mit: php artisan key:generate --show>
+   APP_DEBUG=false
+   APP_URL=https://ihr-projekt.vercel.app
+   FRONTEND_URL=https://ihr-projekt.vercel.app
+   
+   DB_CONNECTION=sqlite
+   
+   SESSION_DRIVER=cookie
+   SESSION_LIFETIME=120
+   SESSION_SECURE_COOKIE=true
+   
+   QUEUE_CONNECTION=sync
+   
+   MAIL_MAILER=smtp
+   MAIL_HOST=smtp.gmail.com
+   MAIL_PORT=587
+   MAIL_USERNAME=buildersfrenchdude@gmail.com
+   MAIL_PASSWORD=dmbnacqwptwsgaiw
+   MAIL_ENCRYPTION=tls
+   MAIL_FROM_ADDRESS=buildersfrenchdude@gmail.com
+   MAIL_FROM_NAME=Tix4me
+   ```
+
+5. **Deploy:**
+   - Klicken Sie auf "Deploy"
+   - Warten Sie bis der Build abgeschlossen ist
+   - Ihre App ist jetzt live! 🎉
+
+### Nach dem Deployment
+
+1. **Datenbank migrieren:**
+   - Vercel unterstützt keine SQLite-Persistenz
+   - Sie müssen zu einer Cloud-Datenbank wechseln (z.B. PlanetScale, Supabase)
+   - Oder verwenden Sie Vercel Postgres
+
+2. **Domain anpassen:**
+   - Gehen Sie zu **Settings → Domains**
+   - Fügen Sie Ihre eigene Domain hinzu (optional)
+
+## 📧 Email-Konfiguration
+
+Die App verwendet Gmail SMTP für Email-Versand:
+
+- **Verifizierungs-Emails** bei Registrierung
+- **Passwort-Reset-Emails**
+- **Email-Änderungs-Bestätigungen**
+
+### Gmail App-Passwort erstellen:
+
+1. Gehen Sie zu [myaccount.google.com/security](https://myaccount.google.com/security)
+2. Aktivieren Sie 2-Faktor-Authentifizierung
+3. Gehen Sie zu "App-Passwörter"
+4. Erstellen Sie ein neues App-Passwort für "Mail"
+5. Verwenden Sie dieses Passwort in `MAIL_PASSWORD`
+
+## 🔒 Sicherheit
+
+- **Session-basierte Authentifizierung** mit SHA-256 Token-Hashing
+- **Bcrypt Passwort-Hashing**
+- **CSRF-Schutz**
+- **Email-Verifizierung** erforderlich
+- **Sichere Cookies** in Produktion
+
+## 📝 Lizenz
+
+Dieses Projekt ist privat und nicht für öffentliche Nutzung bestimmt.
+
+## 👨‍💻 Entwickler
+
+Entwickelt von Philipp Karnath
+
+---
+
+**Viel Erfolg mit Ihrem Deployment! 🚀**
+

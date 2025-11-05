@@ -49,48 +49,70 @@
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="flex gap-4 pt-8 border-t" :class="isDark ? 'border-dark-700/50' : 'border-gray-200/50'">
+        <div class="flex gap-5 pt-8 border-t-2" :class="isDark ? 'border-dark-700/50' : 'border-gray-200/50'">
           <button
             v-if="store.currentStep > 1"
             type="button"
             @click="store.previousStep"
-            :class="['flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-200',
+            :class="['group/back flex-1 px-7 py-4 rounded-2xl font-bold text-lg transition-all duration-500 hover:scale-105 relative overflow-hidden backdrop-blur-md shadow-lg',
               isDark
-                ? 'bg-dark-800 text-gray-300 hover:bg-dark-700'
+                ? 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300']"
           >
-            {{ $t('createEvent.back') }}
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 transition-transform duration-500 group-hover/back:-translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+              </svg>
+              <span class="transition-all duration-500 group-hover/back:tracking-wide">{{ $t('createEvent.back') }}</span>
+            </span>
+            <div :class="['absolute inset-0 transform scale-x-0 group-hover/back:scale-x-100 transition-transform duration-500 origin-left', isDark ? 'bg-gray-700/30' : 'bg-gray-300/50']"></div>
           </button>
 
           <button
             v-if="store.currentStep < 5"
             type="button"
             @click="nextStep"
-            :class="['flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-200 text-white',
-              'bg-primary-600 hover:bg-primary-700 shadow-lg hover:shadow-xl']"
+            :class="['group/next flex-1 px-7 py-4 rounded-2xl font-bold text-lg transition-all duration-500 text-white bg-gradient-to-r from-primary-600 to-purple-600 shadow-xl hover:shadow-2xl hover:scale-105 relative overflow-hidden']"
           >
-            {{ $t('createEvent.next') }}
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <span class="transition-all duration-500 group-hover/next:tracking-wider">{{ $t('createEvent.next') }}</span>
+              <svg class="w-5 h-5 transition-transform duration-500 group-hover/next:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </span>
+            <div class="absolute inset-0 bg-white/20 transform scale-x-0 group-hover/next:scale-x-100 transition-transform duration-500 origin-left"></div>
           </button>
 
           <button
             v-if="store.currentStep === 5"
             type="button"
             @click="submitForm"
-            :class="['flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-200 text-white',
-              'bg-primary-600 hover:bg-primary-700 shadow-lg hover:shadow-xl']"
+            :class="['group/publish flex-1 px-7 py-4 rounded-2xl font-bold text-lg transition-all duration-500 text-white bg-gradient-to-r from-primary-600 to-purple-600 shadow-xl hover:shadow-2xl hover:scale-105 relative overflow-hidden']"
           >
-            {{ $t('createEvent.publishButton') }}
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <svg class="w-6 h-6 transition-transform duration-500 group-hover/publish:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span class="transition-all duration-500 group-hover/publish:tracking-wider">{{ $t('createEvent.publishButton') }}</span>
+            </span>
+            <div class="absolute inset-0 bg-white/20 transform scale-x-0 group-hover/publish:scale-x-100 transition-transform duration-500 origin-left"></div>
           </button>
 
           <button
             type="button"
             @click="cancelForm"
-            :class="['flex-1 px-6 py-3 rounded-lg font-medium transition-all duration-200',
+            :class="['group/cancel flex-1 px-7 py-4 rounded-2xl font-bold text-lg transition-all duration-500 hover:scale-105 relative overflow-hidden backdrop-blur-md shadow-lg',
               isDark
-                ? 'bg-dark-800 text-gray-300 hover:bg-dark-700'
+                ? 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300']"
           >
-            {{ $t('createEvent.cancel') }}
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 transition-transform duration-500 group-hover/cancel:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <span class="transition-all duration-500 group-hover/cancel:tracking-wide">{{ $t('createEvent.cancel') }}</span>
+            </span>
+            <div :class="['absolute inset-0 transform scale-x-0 group-hover/cancel:scale-x-100 transition-transform duration-500 origin-left', isDark ? 'bg-gray-700/30' : 'bg-gray-300/50']"></div>
           </button>
         </div>
       </div>

@@ -1,36 +1,44 @@
 <template>
   <Transition name="fade">
-    <div v-if="isVisible" class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm" :class="isDark ? 'bg-dark-950/40' : 'bg-white/40'">
-      <!-- Loading Container with Glassmorphism -->
-      <div :class="['flex flex-col items-center gap-8 px-8 py-12 rounded-2xl backdrop-blur-md transition-all duration-300', isDark ? 'bg-dark-800/50 border border-dark-700/50 shadow-2xl shadow-black/20' : 'bg-white/50 border border-white/60 shadow-2xl shadow-black/5']">
+    <div v-if="isVisible" class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md" :class="isDark ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-gray-50'">
+      <!-- Animated Background Circles -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div :class="['absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse-slow', isDark ? 'bg-primary-600' : 'bg-primary-400']"></div>
+        <div :class="['absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl opacity-30 animate-pulse-slow', isDark ? 'bg-purple-600' : 'bg-purple-400']" style="animation-delay: 1s;"></div>
+      </div>
 
-        <!-- Logo Animation Container -->
-        <div class="relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center">
-          <!-- Animated Rings (subtle background animation) -->
-          <div class="absolute inset-0 rounded-full border border-primary-600/20 animate-ring-1"></div>
-          <div class="absolute inset-2 rounded-full border border-primary-600/10 animate-ring-2"></div>
+      <!-- Loading Container with Modern Glassmorphism -->
+      <div :class="['relative flex flex-col items-center gap-10 px-12 py-16 rounded-3xl backdrop-blur-xl transition-all duration-500 animate-scale-in', isDark ? 'bg-gray-800/60 border-2 border-gray-700/50 shadow-2xl' : 'bg-white/80 border-2 border-gray-200/50 shadow-2xl']">
 
-          <!-- Glow Background (subtle) -->
-          <div :class="['absolute inset-0 rounded-full blur-3xl opacity-40 animate-logo-glow', isDark ? 'bg-primary-600/30' : 'bg-primary-600/20']"></div>
+        <!-- Logo Animation Container with Gradient Ring -->
+        <div class="relative w-40 h-40 flex items-center justify-center">
+          <!-- Rotating Gradient Ring -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-r from-primary-600 via-purple-600 to-primary-600 animate-spin-slow opacity-20"></div>
+          <div class="absolute inset-2 rounded-full bg-gradient-to-r from-purple-600 via-primary-600 to-purple-600 animate-spin-reverse opacity-15"></div>
 
-          <!-- Logo Image with smooth animation -->
+          <!-- Pulsing Glow -->
+          <div :class="['absolute inset-4 rounded-full blur-2xl animate-pulse-glow', isDark ? 'bg-gradient-to-r from-primary-600 to-purple-600' : 'bg-gradient-to-r from-primary-500 to-purple-500']"></div>
+
+          <!-- Inner Circle Background -->
+          <div :class="['absolute inset-6 rounded-full backdrop-blur-sm', isDark ? 'bg-gray-800/80' : 'bg-white/90']"></div>
+
+          <!-- Logo Image with 3D effect -->
           <img
-            src="/tix4melogooriginallogo.png"
+            src="/images/tix4melogooriginallogo.png"
             alt="Tix4me Logo"
-            class="relative w-20 h-20 sm:w-24 sm:h-24 object-contain animate-logo-pulse"
+            class="relative w-28 h-28 object-contain animate-logo-float drop-shadow-2xl"
           />
         </div>
 
-        <!-- Loading Text with subtle animation -->
-        <div v-if="loadingText" class="flex flex-col items-center gap-3">
-          <p :class="['text-sm font-medium text-center', isDark ? 'text-gray-300' : 'text-gray-700']">
+        <!-- Loading Text with Gradient -->
+        <div v-if="loadingText" class="flex flex-col items-center gap-5">
+          <p :class="['text-xl font-bold text-center bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent animate-text-shimmer']">
             {{ loadingText }}
           </p>
-          <!-- Animated dots -->
-          <div class="flex gap-1.5">
-            <span :class="['w-1.5 h-1.5 rounded-full animate-dot-1', isDark ? 'bg-primary-600/60' : 'bg-primary-600/50']"></span>
-            <span :class="['w-1.5 h-1.5 rounded-full animate-dot-2', isDark ? 'bg-primary-600/60' : 'bg-primary-600/50']"></span>
-            <span :class="['w-1.5 h-1.5 rounded-full animate-dot-3', isDark ? 'bg-primary-600/60' : 'bg-primary-600/50']"></span>
+
+          <!-- Modern Progress Bar -->
+          <div :class="['w-64 h-2 rounded-full overflow-hidden', isDark ? 'bg-gray-700/50' : 'bg-gray-200/50']">
+            <div class="h-full bg-gradient-to-r from-primary-600 via-purple-600 to-primary-600 animate-progress-bar"></div>
           </div>
         </div>
       </div>
@@ -58,119 +66,130 @@ const isDark = computed(() => themeStore.isDark)
 </script>
 
 <style scoped>
-/* Smooth Logo Pulse Animation */
-@keyframes logo-pulse {
-  0% {
-    transform: scale(0.98);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.02);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.98);
-    opacity: 0.85;
-  }
-}
-
-/* Subtle Glow Animation */
-@keyframes logo-glow {
+/* Logo Float Animation - 3D floating effect */
+@keyframes logo-float {
   0%, 100% {
-    transform: scale(1);
-    opacity: 0.35;
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: scale(1.15);
-    opacity: 0.6;
+    transform: translateY(-12px) scale(1.05);
   }
 }
 
-/* Ring Animations - Subtle rotating rings */
-@keyframes ring-1 {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes ring-2 {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-/* Animated Dots */
-@keyframes dot-bounce {
+/* Pulsing Glow Animation */
+@keyframes pulse-glow {
   0%, 100% {
     opacity: 0.4;
-    transform: translateY(0);
+    transform: scale(0.95);
   }
   50% {
-    opacity: 1;
-    transform: translateY(-4px);
+    opacity: 0.8;
+    transform: scale(1.1);
   }
 }
 
-/* Fade Transition */
-@keyframes fade-in {
+/* Slow Pulse for Background Circles */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.1);
+  }
+}
+
+/* Spinning Gradient Ring */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reverse Spinning Ring */
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Text Shimmer Effect */
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Progress Bar Animation */
+@keyframes progress-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Scale In Animation for Container */
+@keyframes scale-in {
   from {
     opacity: 0;
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+/* Apply Animations */
+.animate-logo-float {
+  animation: logo-float 3s ease-in-out infinite;
 }
 
-.animate-logo-pulse {
-  animation: logo-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
-.animate-logo-glow {
-  animation: logo-glow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
 }
 
-.animate-ring-1 {
-  animation: ring-1 8s linear infinite;
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
 }
 
-.animate-ring-2 {
-  animation: ring-2 12s linear infinite;
+.animate-spin-reverse {
+  animation: spin-reverse 4s linear infinite;
 }
 
-.animate-dot-1 {
-  animation: dot-bounce 1.4s ease-in-out infinite;
-  animation-delay: 0s;
+.animate-text-shimmer {
+  background-size: 200% auto;
+  animation: text-shimmer 3s linear infinite;
 }
 
-.animate-dot-2 {
-  animation: dot-bounce 1.4s ease-in-out infinite;
-  animation-delay: 0.2s;
+.animate-progress-bar {
+  animation: progress-bar 1.5s ease-in-out infinite;
 }
 
-.animate-dot-3 {
-  animation: dot-bounce 1.4s ease-in-out infinite;
-  animation-delay: 0.4s;
+.animate-scale-in {
+  animation: scale-in 0.5s ease-out;
 }
 
 /* Fade Transition */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .fade-enter-from,

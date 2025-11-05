@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Session;
 
 /**
@@ -29,7 +30,6 @@ class ValidateSessionToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Get token from Authorization header
         $token = $this->getTokenFromRequest($request);
 
         if (!$token) {
@@ -38,7 +38,6 @@ class ValidateSessionToken
             ], 401);
         }
 
-        // Find session by token
         $session = Session::where('token', $token)
             ->with('user')
             ->first();
@@ -49,7 +48,6 @@ class ValidateSessionToken
             ], 401);
         }
 
-        // Check if session is expired
         if (!$session->isValid()) {
             $session->delete();
             return response()->json([
@@ -57,10 +55,10 @@ class ValidateSessionToken
             ], 401);
         }
 
-        // Update last activity
         $session->update(['last_activity' => now()]);
 
-        // Attach session and user to request
+        Auth::setUser($session->user);
+
         $request->merge([
             'session' => $session,
             'user' => $session->user,
@@ -69,11 +67,6 @@ class ValidateSessionToken
         return $next($request);
     }
 
-    /**
-     * Extract token from Authorization header
-     *
-     * Expected format: "Bearer token_value"
-     */
     private function getTokenFromRequest(Request $request): ?string
     {
         $authHeader = $request->header('Authorization');
