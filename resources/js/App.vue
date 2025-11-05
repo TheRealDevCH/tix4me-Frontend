@@ -28,7 +28,6 @@ const themeStore = useThemeStore()
 const authStore = useAuthStore()
 const { isDark } = themeStore
 
-// Initialize auth on app mount
 onMounted(() => {
   authStore.initializeAuth()
 })
@@ -50,5 +49,4 @@ onMounted(() => {
   transform: translateY(-20px);
 }
 </style>
-<
 

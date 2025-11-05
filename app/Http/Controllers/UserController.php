@@ -11,9 +11,6 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Update user profile information.
-     */
     public function updateProfile(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -43,11 +40,9 @@ class UserController extends Controller
 
         $emailChanged = $user->email !== $request->email;
 
-        // Update user
         $user->name = $request->name;
         $user->email = $request->email;
 
-        // If email changed, mark as unverified and send new verification email
         if ($emailChanged) {
             $user->email_verified_at = null;
             $user->save();
@@ -84,9 +79,6 @@ class UserController extends Controller
         ], 200);
     }
 
-    /**
-     * Update user password.
-     */
     public function updatePassword(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -109,14 +101,12 @@ class UserController extends Controller
             ], 422);
         }
 
-        // Check current password
         if (!Hash::check($request->current_password, $user->password)) {
             return response()->json([
                 'message' => 'Das aktuelle Passwort ist falsch',
             ], 422);
         }
 
-        // Update password
         $user->password = Hash::make($request->new_password);
         $user->save();
 
@@ -125,9 +115,6 @@ class UserController extends Controller
         ], 200);
     }
 
-    /**
-     * Delete user account.
-     */
     public function deleteAccount(Request $request): JsonResponse
     {
         $user = $request->user();
@@ -149,17 +136,13 @@ class UserController extends Controller
             ], 422);
         }
 
-        // Check password
         if (!Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Das Passwort ist falsch',
             ], 422);
         }
 
-        // Delete all user sessions
         $user->invalidateAllSessions();
-
-        // Delete user
         $user->delete();
 
         return response()->json([

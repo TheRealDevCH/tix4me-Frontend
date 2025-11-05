@@ -66,7 +66,6 @@ const isDark = computed(() => themeStore.isDark)
 </script>
 
 <style scoped>
-/* Logo Float Animation - 3D floating effect */
 @keyframes logo-float {
   0%, 100% {
     transform: translateY(0) scale(1);
@@ -76,7 +75,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Pulsing Glow Animation */
 @keyframes pulse-glow {
   0%, 100% {
     opacity: 0.4;
@@ -88,7 +86,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Slow Pulse for Background Circles */
 @keyframes pulse-slow {
   0%, 100% {
     opacity: 0.2;
@@ -100,7 +97,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Spinning Gradient Ring */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -110,7 +106,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Reverse Spinning Ring */
 @keyframes spin-reverse {
   from {
     transform: rotate(360deg);
@@ -120,7 +115,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Text Shimmer Effect */
 @keyframes text-shimmer {
   0% {
     background-position: -200% center;
@@ -130,7 +124,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Progress Bar Animation */
 @keyframes progress-bar {
   0% {
     transform: translateX(-100%);
@@ -140,7 +133,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Scale In Animation for Container */
 @keyframes scale-in {
   from {
     opacity: 0;
@@ -152,7 +144,6 @@ const isDark = computed(() => themeStore.isDark)
   }
 }
 
-/* Apply Animations */
 .animate-logo-float {
   animation: logo-float 3s ease-in-out infinite;
 }
@@ -186,7 +177,6 @@ const isDark = computed(() => themeStore.isDark)
   animation: scale-in 0.5s ease-out;
 }
 
-/* Fade Transition */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.4s ease;
